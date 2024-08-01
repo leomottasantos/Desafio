@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tp28dai7-8#1bh%8+n0uv3)22_5!6@y07rdb!hqrlwqai)h8m8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'estagio_desafio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Aluguel',
+        'USER': 'postgres',
+        'PASSWORD': '12345678',
+        'HOST': 'psql',
+        'PORT':  '5432',
     }
 }
 

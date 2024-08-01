@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
 
+
 def usuario(request):
   myusuario = Usuario.objects.all().values()
   template = loader.get_template('all_usuario.html')
@@ -42,16 +43,17 @@ def cadastro(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         senha = request.POST.get('senha')
-        
-        try:
-            user = User.objects.get(username=username)
-            return HttpResponse('Já existe um usuário com esse username')
 
-            user = User.objects.create_user(username=username, email=email, password=senha)
-            user.save()
-        except User.DoesNotExist:
-            
-            return HttpResponse('usuário cadastrado com sucesso!')
+        if User.objects.filter(username=username).exists():
+            return HttpResponse('Já existe um usuário com esse nome de usuário.')
+
+        if User.objects.filter(email=email).exists():
+            return HttpResponse('Já existe um usuário com esse email.')
+
+        user = User.objects.create_user(username=username, email=email, password=senha)
+        user.save()
+        
+        return HttpResponse('Usuário cadastrado com sucesso!')
 
 
 

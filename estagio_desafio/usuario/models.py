@@ -5,3 +5,4 @@ class Usuario(models.Model):
   lastname = models.CharField(max_length=255)
   phone = models.IntegerField(null=True)
   joined_date = models.DateField(null=True)
+  email = models.EmailField(unique=True)
