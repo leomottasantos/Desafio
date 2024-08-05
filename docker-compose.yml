@@ -6,7 +6,11 @@ services:
     volumes:
       - "./estagio_desafio:/estagio_desafio"
     ports:
-      - "8000:8000"
+      - 8000:8000
+
+    env_file:
+      - ./dotenv/.env 
+    
     depends_on:
       - psql
   psql:

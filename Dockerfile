@@ -6,10 +6,16 @@ ENV PYTHONNUNBUFFERED 1
 
 COPY estagio_desafio /estagio_desafio
 
+COPY scripts /scripts
+
 WORKDIR /estagio_desafio
 
 RUN pip install -r requirements.txt
 
+RUN chmod -R +x /scripts
+
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENV PATH="/scripts:$PATH"
+
+CMD ["commands.sh"]

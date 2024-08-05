@@ -21,5 +21,6 @@ from django.http import HttpResponse
 urlpatterns = [
     path('', include('usuario.urls')),
     path('admin/', admin.site.urls),
-    path('', lambda x: HttpResponse('Django e docker'))
+    path('', lambda x: HttpResponse('Django e docker')),
+    path("accounts/", include("allauth.urls"))
 ]

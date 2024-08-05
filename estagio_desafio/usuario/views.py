@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
-
+from .models import Profile
+from .forms import ProfileForm
 
 def usuario(request):
   myusuario = Usuario.objects.all().values()
@@ -77,3 +78,21 @@ def login(request):
 @login_required
 def plataforma(request):
   return HttpResponse('Você precisa estar logado')
+
+@login_required
+def view_profile(request):
+    profile = request.user.profile
+    return render(request, 'profile/view.html', {'profile': profile})
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('view_profile')
+    else:
+        form = ProfileForm(instance=request.user.profile)
+    
+    return render(request, 'profile/edit.html', {'form': form})
