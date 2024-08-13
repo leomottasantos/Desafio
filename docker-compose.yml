@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: .
+    volumes:
+      - "./estagio_desafio:/estagio_desafio"
+    ports:
+      - 8000:8000
+
+    env_file:
+      - ./dotenv/.env 
+    
+    depends_on:
+      - psql
+  psql:
+    container_name: psql
+    image: postgres:13-alpine
+    env_file:
+      - ./dotenv/.env 
